@@ -1,0 +1,253 @@
+import React, { useState, useEffect } from 'react';
+import Header from '../HomePage/Header'; 
+import Navigation from '../HomePage/Navigation'; 
+import Footer from '../HomePage/Footer'; 
+
+const EventsBody = () => {
+  const [events, setEvents] = useState([]);
+  const [searchEvent, setSearchEvent] = useState('');
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  
+  // State for event form
+  const [eventForm, setEventForm] = useState({
+    event_name: '',
+    event_date: '',
+    location: '',
+    description: '',
+  });
+  const [editingEventId, setEditingEventId] = useState(null);
+
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/events');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setEvents(data.response || []);
+      setFilteredEvents(data.response || []);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  };
+
+  const handleSearch = () => {
+    if (searchEvent.trim() === '') {
+      setFilteredEvents(events);
+    } else {
+      const lowerCaseSearch = searchEvent.toLowerCase();
+      const filtered = events.filter(event => 
+        event.event_name.toLowerCase().includes(lowerCaseSearch)
+      );
+
+      setFilteredEvents(filtered);
+
+      if (filtered.length === 0) {
+        alert('No events found matching your search.');
+      }
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEventForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Editing Event ID:", editingEventId); // Log the ID being edited
+    console.log("Event Form Data:", eventForm); // Log the form data
+  
+    if (editingEventId) {
+      // Update event
+      try {
+        const response = await fetch(`http://localhost:3000/events/${editingEventId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(eventForm),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to update event');
+        }
+        fetchEvents(); // Refresh events
+        resetForm();
+      } catch (error) {
+        console.error('Error updating event:', error);
+      }
+    } else {
+      // Create new event
+      try {
+        const response = await fetch('http://localhost:3000/events', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(eventForm),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to create event');
+        }
+        fetchEvents(); // Refresh events
+        resetForm();
+      } catch (error) {
+        console.error('Error creating event:', error);
+      }
+    }
+  };
+  const handleEdit = (event) => {
+    console.log("Editing Event:", event); // Log the entire event object
+    setEventForm({
+      event_name: event.event_name,
+      event_date: event.event_date,
+      location: event.location,
+      description: event.description,
+    });
+    setEditingEventId(event.event_id); 
+  };
+
+  const handleDelete = async (eventId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this event?");
+    if (!confirmDelete) return; // Exit if the user cancels
+
+    try {
+      const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete event');
+      }
+
+      fetchEvents(); // Refresh events
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      alert('Error deleting event. Please try again.');
+    }
+  };
+
+  const resetForm = () => {
+    setEventForm({
+      event_name: '',
+      event_date: '',
+      location: '',
+      description: '',
+    });
+    setEditingEventId(null); // Reset the editing ID
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  return (
+    <div className="container my-4">
+      <h2>Upcoming Events</h2>
+      <input
+        type="text"
+        placeholder="Search for an event..."
+        className="form-control mb-2"
+        value={searchEvent}
+        onChange={(e) => setSearchEvent(e.target.value)}
+        onKeyDow={handleKeyPress}
+      />
+      <button className="btn btn-primary mb-3" onClick={handleSearch}>
+        Search
+      </button>
+
+      <form onSubmit={handleSubmit} className="mb-4">
+        <input
+          type="text"
+          name="event_name"
+          placeholder="Event Name"
+          value={eventForm.event_name}
+          onChange={handleInputChange}
+          required
+          className="form-control mb-2"
+        />
+        <input
+          type="datetime-local"
+          name="event_date"
+          value={eventForm.event_date}
+          onChange={handleInputChange}
+          required
+          className="form-control mb-2"
+        />
+        <input
+          type="text"
+          name="location"
+          placeholder="Location"
+          value={eventForm.location}
+          onChange={handleInputChange}
+          required
+          className="form-control mb-2"
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={eventForm.description}
+          onChange={handleInputChange}
+          className="form-control mb-2"
+        />
+        <button type="submit" className="btn btn-success mb-3">
+          {editingEventId ? 'Update Event' : 'Add Event'}
+        </button>
+        <button type="button" className="btn btn-secondary" onClick={resetForm}>
+          Cancel
+        </button>
+      </form>
+
+      {filteredEvents.length === 0 ? (
+        <p>No events found.</p>
+      ) : (
+        <div className="row">
+          {filteredEvents.map(event => (
+            <div key={event.event_id} className="col-md-4 mb-4">
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{event.event_name}</h5>
+                  <p className="card-text">
+                    <strong>Description:</strong> {event.description}<br />
+                    <strong>Date & Time:</strong> {event.event_date}<br />
+                    <strong>Location:</strong> {event.location}
+                  </p>
+                  <button className="btn btn-warning" onClick={() => handleEdit(event)}>
+                    Edit
+                  </button>
+                  <button className="btn btn-danger" onClick={() => handleDelete(event.event_id)}>
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Events = () => {
+  return (
+    <div>
+      <Header />       
+      <Navigation />   
+      <EventsBody />  
+      <Footer />       
+    </div>
+  );
+};
+
+export default Events;
