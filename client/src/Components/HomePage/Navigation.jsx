@@ -14,14 +14,15 @@ const Navigation = () => {
             <NavLink className="nav-link" to="/petProfiles">Pet Profiles</NavLink>
           </li>
           <li className="nav-item">
+            <NavLink className="nav-link" to="/apply">Apply Now</NavLink>
+          </li>
+          <li className="nav-item">
             <NavLink className="nav-link" to="/events">Events</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/contact">Contact Us</NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/apply">Apply Now</NavLink>
-          </li>
+
         </ul>
       </div>
     </nav>

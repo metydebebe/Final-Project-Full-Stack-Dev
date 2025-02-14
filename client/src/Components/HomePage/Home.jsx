@@ -64,25 +64,26 @@ const HomeBody = () => {
 
         {/* Steps */}
         <div className="col-md-6 ">
+        <h3 className='m-2 fw-bold'>Steps to take for Adopting a Pet</h3>
           <ul className="list-group rounded-5 ">
             <li className="list-group-item m-4 p-3">
-              <b className="d-block fs-5">Step 1</b> Navigate to the Pet Profiles on the Navigation Bar
+              <b className="d-block fs-5">Step 1</b> Navigate to the 'Pet Profiles' on the Navigation Bar
             </li>
             <li className="list-group-item m-4 p-3">
               <b className="d-block fs-5">Step 2</b> Choose a Pet
             </li>
             <li className="list-group-item m-4 p-3">
               <b className="d-block fs-5">Step 3</b>
-               Navigate to the Apply Link on the Navigation Bar
+               Navigate to the 'Apply Now' Link on the Navigation Bar
             </li>
             <li className="list-group-item m-4 p-3">
-              <b className="d-block fs-5">Step 4</b> Navigate to the Apply Link on the Navigation Bar
+              <b className="d-block fs-5">Step 4</b> Fill Out the Form
             </li>
             <li className="list-group-item m-4 p-3">
-              <b className="d-block fs-5">Step 5</b> Fill Out the Form
+              <b className="d-block fs-5">Step 5</b> Submit!
             </li>
             <li className="list-group-item m-4 p-3">
-              <b className="d-block fs-5">Step 6</b> Submit!
+              <b className="d-block fs-5">Step 6</b> Wait for Approval
             </li>
           </ul>
         </div>
