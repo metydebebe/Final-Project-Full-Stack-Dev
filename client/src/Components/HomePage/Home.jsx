@@ -83,7 +83,7 @@ const HomeBody = () => {
               <b className="d-block fs-5">Step 5</b> Submit!
             </li>
             <li className="list-group-item m-4 p-3">
-              <b className="d-block fs-5">Step 6</b> Wait for Approval
+              <b className="d-block fs-5">Step 6</b> Pick up Yoour Pet From the Shelter!
             </li>
           </ul>
         </div>

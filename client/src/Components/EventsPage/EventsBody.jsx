@@ -7,7 +7,8 @@ const EventsBody = () => {
   const [events, setEvents] = useState([]);
   const [searchEvent, setSearchEvent] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
-  
+  const [noEventsMessage, setNoEventsMessage] = useState('');
+
   // State for event form
   const [eventForm, setEventForm] = useState({
     event_name: '',
@@ -31,22 +32,25 @@ const EventsBody = () => {
     }
   };
 
-  const handleSearch = () => {
+const handleSearch = () => {
     if (searchEvent.trim() === '') {
-      setFilteredEvents(events);
+        setFilteredEvents(events);
+        setNoEventsMessage(''); // Clear the message when search is empty
     } else {
-      const lowerCaseSearch = searchEvent.toLowerCase();
-      const filtered = events.filter(event => 
-        event.event_name.toLowerCase().includes(lowerCaseSearch)
-      );
+        const lowerCaseSearch = searchEvent.toLowerCase();
+        const filtered = events.filter(event => 
+            event.event_name.toLowerCase().includes(lowerCaseSearch)
+        );
 
-      setFilteredEvents(filtered);
+        setFilteredEvents(filtered);
 
-      if (filtered.length === 0) {
-        alert('No events found matching your search.');
-      }
+        if (filtered.length === 0) {
+            setNoEventsMessage('No events found matching your search.');
+        } else {
+            setNoEventsMessage(''); // Clear the message if there are results
+        }
     }
-  };
+};
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -149,7 +153,7 @@ const EventsBody = () => {
         className="form-control mb-2"
         value={searchEvent}
         onChange={(e) => setSearchEvent(e.target.value)}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
       />
       <button className="btn btn-primary mb-3" onClick={handleSearch}>
         Search
@@ -189,10 +193,10 @@ const EventsBody = () => {
           onChange={handleInputChange}
           className="form-control mb-2"
         />
-        <button type="submit" className="btn btn-success mb-3">
+        <button type="submit" className="btn btn-success ">
           {editingEventId ? 'Update Event' : 'Add Event'}
         </button>
-        <button type="button" className="btn btn-secondary" onClick={resetForm}>
+        <button type="button" className="btn btn-secondary m-2" onClick={resetForm}>
           Cancel
         </button>
       </form>
@@ -211,10 +215,10 @@ const EventsBody = () => {
                     <strong>Date & Time:</strong> {event.event_date}<br />
                     <strong>Location:</strong> {event.location}
                   </p>
-                  <button className="btn btn-warning" onClick={() => handleEdit(event)}>
+                  <button className="btn btn-warning me-2" onClick={() => handleEdit(event)}>
                     Edit
                   </button>
-                  <button className="btn btn-danger" onClick={() => handleDelete(event.event_id)}>
+                  <button className="btn btn-danger ms-2" onClick={() => handleDelete(event.event_id)}>
                     Delete
                   </button>
                 </div>
