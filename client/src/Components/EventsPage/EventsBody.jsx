@@ -146,7 +146,7 @@ const handleSearch = () => {
 
   return (
     <div className="container my-4">
-      <h2>Upcoming Events</h2>
+      <h2 className='mb-4'>Upcoming Events</h2>
       <input
         type="text"
         placeholder="Search for an event..."

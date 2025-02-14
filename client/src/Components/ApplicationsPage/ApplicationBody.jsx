@@ -87,7 +87,7 @@ const ApplicationBody = () => {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <h2 className='container-fluid mt-4 p-2'>Apply Now!</h2>
       <h5 className='text-body-secondary mb-5 p-2'>Get a new companion today!</h5>
       <div className=' container p-3 mt-3 mb-5 bg-warning-subtle'>
