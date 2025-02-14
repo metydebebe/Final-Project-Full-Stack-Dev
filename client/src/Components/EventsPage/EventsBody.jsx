@@ -64,9 +64,6 @@ const EventsBody = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Editing Event ID:", editingEventId); // Log the ID being edited
-    console.log("Event Form Data:", eventForm); // Log the form data
-  
     if (editingEventId) {
       // Update event
       try {
@@ -77,7 +74,7 @@ const EventsBody = () => {
           },
           body: JSON.stringify(eventForm),
         });
-  
+
         if (!response.ok) {
           throw new Error('Failed to update event');
         }
@@ -96,7 +93,7 @@ const EventsBody = () => {
           },
           body: JSON.stringify(eventForm),
         });
-  
+
         if (!response.ok) {
           throw new Error('Failed to create event');
         }
@@ -107,34 +104,25 @@ const EventsBody = () => {
       }
     }
   };
+
   const handleEdit = (event) => {
-    console.log("Editing Event:", event); // Log the entire event object
     setEventForm({
       event_name: event.event_name,
       event_date: event.event_date,
       location: event.location,
       description: event.description,
     });
-    setEditingEventId(event.event_id); 
+    setEditingEventId(event.event_id);
   };
 
   const handleDelete = async (eventId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this event?");
-    if (!confirmDelete) return; // Exit if the user cancels
-
     try {
-      const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+      await fetch(`http://localhost:3000/events/${eventId}`, {
         method: 'DELETE',
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete event');
-      }
-
       fetchEvents(); // Refresh events
     } catch (error) {
       console.error('Error deleting event:', error);
-      alert('Error deleting event. Please try again.');
     }
   };
 
@@ -145,7 +133,7 @@ const EventsBody = () => {
       location: '',
       description: '',
     });
-    setEditingEventId(null); // Reset the editing ID
+    setEditingEventId(null);
   };
 
   useEffect(() => {
@@ -161,7 +149,7 @@ const EventsBody = () => {
         className="form-control mb-2"
         value={searchEvent}
         onChange={(e) => setSearchEvent(e.target.value)}
-        onKeyDow={handleKeyPress}
+        onKeyPress={handleKeyPress}
       />
       <button className="btn btn-primary mb-3" onClick={handleSearch}>
         Search
