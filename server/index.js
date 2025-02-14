@@ -114,7 +114,8 @@ app.delete("/pets/:id", async (req, res) => {
           return res.status(404).json({ message: 'Pet not found' });
       }
 
-      res.status(204).json(); // No content to return
+      res.status(204).json({message: 'Pet deleted successfully'}); 
+
   } catch (error) {
       console.error(error.message);
       res.status(500).json({ message: 'Internal Server Error' });
@@ -200,19 +201,29 @@ app.post("/applications", async (req, res) => {
 app.put("/applications/:id", async (req, res) => {
     const applicationId = req.params.id;
     const { status } = req.body; // Updating the status
-  
+
     try {
+        // Update the application status
         const result = await pool.query(
             `UPDATE applications SET status = $1 WHERE application_id = $2 RETURNING *`,
             [status, applicationId]
         );
-  
+
         if (result.rows.length === 0) {
             return res.status(404).json({ message: 'Application not found' });
         }
-  
+
+        // If status is approved, update the corresponding pet's adopted status
+        if (status === 'approved') {
+            const application = result.rows[0];
+            await pool.query(
+                `UPDATE pets SET adopted = TRUE WHERE pet_id = $1`,
+                [application.pet_id]
+            );
+        }
+
         res.status(200).json({ message: 'Application updated successfully', response: result.rows[0] });
-  
+
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -230,7 +241,7 @@ app.delete("/applications/:id", async (req, res) => {
             return res.status(404).json({ message: 'Application not found' });
         }
   
-        res.status(204).json(); // No content to return
+        res.status(204).json({message: 'Application deleted successfully'}); 
   
     } catch (error) {
         console.error(error.message);
@@ -355,7 +366,7 @@ app.delete("/events/:id", async (req, res) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        res.status(204).json(); // No content to return
+        res.status(204).json({message: 'Event deleted successfully'});
 
     } catch (error) {
         console.error(error.message);
