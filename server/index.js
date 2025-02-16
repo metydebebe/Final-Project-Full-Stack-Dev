@@ -114,7 +114,7 @@ app.delete("/pets/:id", async (req, res) => {
           return res.status(404).json({ message: 'Pet not found' });
       }
 
-      res.status(204).json({message: 'Pet deleted successfully'}); 
+      res.status(200).json({message: 'Pet deleted successfully'}); 
 
   } catch (error) {
       console.error(error.message);
@@ -170,7 +170,7 @@ app.post("/applications", async (req, res) => {
     }
   
     try {
-        // Check if application with specified details already exists
+        // Check if application already exists
         const existingApplication = await pool.query(
             "SELECT * FROM applications WHERE pet_id = $1 AND full_name = $2 AND email = $3 AND phone = $4 AND address = $5",
             [pet_id, full_name, email, phone, address]
@@ -213,16 +213,30 @@ app.put("/applications/:id", async (req, res) => {
             return res.status(404).json({ message: 'Application not found' });
         }
 
+
         // If status is approved, update the corresponding pet's adopted status
-        if (status === 'approved') {
+        if (status === 'Approved') {
             const application = result.rows[0];
             await pool.query(
                 `UPDATE pets SET adopted = TRUE WHERE pet_id = $1`,
                 [application.pet_id]
             );
+            return res.status(200).json({ message: 'Application approved and pet status updated.', response: result.rows[0] });
         }
 
-        res.status(200).json({ message: 'Application updated successfully', response: result.rows[0] });
+        // If status is pending
+        if (status === 'Pending') {
+            return res.status(200).json({ message: 'Application status updated to pending.', response: result.rows[0] });
+        }
+
+        // If status is Rejected
+        if (status === 'Rejected') {
+            return res.status(200).json({ message: 'Application rejected.', response: result.rows[0] });
+        }
+
+        // If an unexpected status is provided
+        return res.status(400).json({ message: 'Invalid status provided.' });
+
 
     } catch (error) {
         console.error(error.message);
@@ -241,7 +255,7 @@ app.delete("/applications/:id", async (req, res) => {
             return res.status(404).json({ message: 'Application not found' });
         }
   
-        res.status(204).json({message: 'Application deleted successfully'}); 
+        res.status(200).json({message: 'Application deleted successfully'}); 
   
     } catch (error) {
         console.error(error.message);
@@ -366,7 +380,7 @@ app.delete("/events/:id", async (req, res) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        res.status(204).json({message: 'Event deleted successfully'});
+        res.status(200).json({message: 'Event deleted successfully'});
 
     } catch (error) {
         console.error(error.message);
@@ -379,3 +393,4 @@ const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+

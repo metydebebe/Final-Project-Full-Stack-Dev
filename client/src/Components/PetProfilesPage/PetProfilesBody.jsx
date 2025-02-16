@@ -116,6 +116,11 @@ const PetProfilesBody = () => {
                 <p className="card-text">Type: {pet.pet_type}</p>
                 <p className="card-text">Age: {pet.age}</p>
                 <p className="card-text">Description: {pet.description}</p>
+                {pet.adopted ? (
+                      <p className="text-danger fw-bold">Pet Not Available</p> // Message for adopted pets
+                  ) : (
+                      <p className="text-success fw-bold">Available for Adoption</p> // Message for available pets
+                  )}
               </div>
             </div>
           </div>
