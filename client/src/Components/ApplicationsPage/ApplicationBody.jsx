@@ -23,7 +23,9 @@ const ApplicationBody = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Hardcoded API URL for local development
+  // Fetching applications
+  // const url = process.env.REACT_APP_API_URL;         //NOT WORKING
+
   const url = 'http://localhost:3000/applications';
 
   const handleChange = (e) => {
