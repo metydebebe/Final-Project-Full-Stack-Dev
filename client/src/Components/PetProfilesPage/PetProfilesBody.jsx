@@ -62,11 +62,9 @@ const PetProfilesBody = () => {
   }
 
   const getImageSrc = (pet) => {
-    switch (pet.name.toLowerCase()) {
+    switch (pet.pet_name.toLowerCase()) {
       case 'khai':
         return khaiImage;
-      case 'dilila':
-        return dililaImage;
       case 'bob':
         return bobImage;
       case 'gregory':
@@ -75,6 +73,8 @@ const PetProfilesBody = () => {
         return poppyImage;
       case 'robert':
         return robertImage;
+      case 'dilila':
+        return dililaImage;
       case 'princess':
         return princessImage;
       case 'tina':
@@ -88,7 +88,7 @@ const PetProfilesBody = () => {
     <div className="container mt-4">
       <h2>Pet Profiles</h2>
       <div className="mb-3">
-        <label htmlFor="petType" className="form-label">Select Pet Type:</label>
+        <label htmlFor="petType" className="form-label fw-bold text-body-emphasis">Select Pet Type:</label>
         <select
           id="petType"
           className="form-select"
@@ -107,12 +107,12 @@ const PetProfilesBody = () => {
             <div className="card">
               <img
                 src={getImageSrc(pet)}
-                alt={pet.name}
+                alt={pet.pet_name}
                 className="card-img-top"
                 style={{ height: '200px', objectFit: 'cover' }} 
               />
               <div className="card-body">
-                <h5 className="card-title">{pet.name}</h5>
+                <h5 className="card-title">{pet.pet_name}</h5>
                 <p className="card-text">Type: {pet.pet_type}</p>
                 <p className="card-text">Age: {pet.age}</p>
                 <p className="card-text">Description: {pet.description}</p>

@@ -21,7 +21,7 @@ const ApplicationBody = () => {
 
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); //indicates whether the form is currently being submitted
 
   // Fetching applications
   // const url = process.env.REACT_APP_API_URL;         //NOT WORKING
@@ -66,7 +66,7 @@ const ApplicationBody = () => {
 
       const data = await response.json();
       setSuccessMessage(data.message);
-      setFormData({ // Reset form after submission
+      setFormData({ // Reset form fields after submission
         pet_id: '',
         full_name: '',
         email: '',

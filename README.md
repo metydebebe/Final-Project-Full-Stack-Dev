@@ -19,7 +19,7 @@ SQL
 
 CREATE TABLE pets (
 pet_id SERIAL PRIMARY KEY,
-name VARCHAR(50) NOT NULL,
+pet_name VARCHAR(50) NOT NULL,
 age INT,
 pet_type VARCHAR(50) NOT NULL,
 description TEXT,

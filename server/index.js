@@ -47,18 +47,18 @@ app.get("/pets", async (req, res) => {
 
 // POST a new pet
 app.post("/pets", async (req, res) => {
-  const { name, age, pet_type, description } = req.body;
+  const { pet_name, age, pet_type, description } = req.body;
   
   // Check if any required fields are missing
-  if (!name || !age || !pet_type || !description) {
-    return res.status(400).json({ message: 'Missing required fields: name, age, pet_type, and description are required.' });
+  if (!pet_name || !age || !pet_type || !description) {
+    return res.status(400).json({ message: 'Missing required fields: pet_name, age, pet_type, and description are required.' });
   }
 
   try {
-    // Check if a pet with the same name, age, pet_type, and description already exists
+    // Check if a pet with the same pet_name, age, pet_type, and description already exists
     const existingPet = await pool.query(
-        "SELECT * FROM pets WHERE name = $1 AND age = $2 AND pet_type = $3 AND description = $4",
-        [name, age, pet_type, description]
+        "SELECT * FROM pets WHERE pet_name = $1 AND age = $2 AND pet_type = $3 AND description = $4",
+        [pet_name, age, pet_type, description]
     );
 
     if (existingPet.rows.length > 0) {
@@ -67,8 +67,8 @@ app.post("/pets", async (req, res) => {
 
     // Insert the new pet into the database
     const result = await pool.query(
-        "INSERT INTO pets (name, age, pet_type, description) VALUES ($1, $2, $3, $4) RETURNING *",
-        [name, age, pet_type, description]
+        "INSERT INTO pets (pet_name, age, pet_type, description) VALUES ($1, $2, $3, $4) RETURNING *",
+        [pet_name, age, pet_type, description]
     );
 
     // Respond with the created pet and a 201 status
@@ -83,12 +83,12 @@ app.post("/pets", async (req, res) => {
 // PUT (update) a pet
 app.put("/pets/:id", async (req, res) => {
   const petId = req.params.id;
-  const { name, age, pet_type, description, adopted } = req.body;
+  const { pet_name, age, pet_type, description, adopted } = req.body;
 
   try {
       const result = await pool.query(
-          "UPDATE pets SET name = $1, age = $2, pet_type = $3, description = $4, adopted = $5 WHERE pet_id = $6 RETURNING *",
-          [name, age, pet_type, description, adopted, petId]
+          "UPDATE pets SET pet_name = $1, age = $2, pet_type = $3, description = $4, adopted = $5 WHERE pet_id = $6 RETURNING *",
+          [pet_name, age, pet_type, description, adopted, petId]
       );
 
       if (result.rows.length === 0) {
@@ -211,7 +211,6 @@ app.put("/applications/:id", async (req, res) => {
         if (result.rows.length === 0) {
             return res.status(404).json({ message: 'Application not found' });
         }
-
 
         // If status is approved, update the corresponding pet's adopted status
         if (status === 'Approved') {
@@ -392,4 +391,3 @@ const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
