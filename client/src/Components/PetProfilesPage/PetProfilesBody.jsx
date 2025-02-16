@@ -19,10 +19,13 @@ const PetProfilesBody = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // const url = process.env.REACT_APP_API_URL; // NOT WORKING
+
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('http://localhost:3000/pets');
+        const response = await fetch('http://localhost:3000/pets');  // const response = await fetch(url); //NOT WORKING
+
         if (!response.ok) {
           throw new Error('Failed to fetch pets');
         }
