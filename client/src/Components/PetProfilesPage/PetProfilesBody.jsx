@@ -54,7 +54,7 @@ const PetProfilesBody = () => {
   };
 
   if (loading) {
-    return <p>Loading pets...</p>;
+    return <p>Loading to fetch pets...</p>;
   }
 
   if (error) {
@@ -80,7 +80,7 @@ const PetProfilesBody = () => {
       case 'tina':
         return tinaImage;
       default:
-        return defaultImage; // Use the default image directly
+        return defaultImage; 
     }
   };
 
@@ -96,8 +96,8 @@ const PetProfilesBody = () => {
           onChange={handleTypeChange}
         >
           <option value="">All</option>
-          <option value="Dog">Dog</option>
-          <option value="Cat">Cat</option>
+          <option value="Dog">Dogs</option>
+          <option value="Cat">Cats</option>
         </select>
       </div>
 
@@ -117,9 +117,9 @@ const PetProfilesBody = () => {
                 <p className="card-text">Age: {pet.age}</p>
                 <p className="card-text">Description: {pet.description}</p>
                 {pet.adopted ? (
-                      <p className="text-danger fw-bold">Pet Not Available</p> // Message for adopted pets
+                      <p className="text-danger fw-bold">Pet Not Available</p> 
                   ) : (
-                      <p className="text-success fw-bold">Available for Adoption</p> // Message for available pets
+                      <p className="text-success fw-bold">Available for Adoption</p> 
                   )}
               </div>
             </div>

@@ -4,7 +4,6 @@ const pool = require("./db");
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 

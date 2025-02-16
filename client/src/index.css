@@ -10,7 +10,7 @@ body {
 }
 
 .navbar-nav .nav-link:hover {
-  color: #ffffff; /* Highlight color on hover */
+  color: #ffffff; /* On hover color */
 }
 
 .header {
@@ -18,18 +18,18 @@ body {
 
 }
 
-/* Add this to your CSS file */
+
 .bg-warning {
-  background-color: #fce5a1; /* Light yellow background */
+  background-color: #fce5a1; 
 }
 
 .bg-light {
-  background-color: #f8f9fa; /* Light gray background */
+  background-color: #f8f9fa; 
 }
 
 .list-group-item {
-  background-color: #e9ecef; /* Light gray for steps */
-  border: none; /* Remove border for cleaner look */
+  background-color: #e9ecef; 
+  border: none; 
   padding: 10px;
 }
 

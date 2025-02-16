@@ -24,10 +24,10 @@ const HomeBody = () => {
 
   return (
     <div className="container-fluid my-4 mx-0">
-      {/* Ethio-Pets Shelter and What We Do */}
+      {/* What We Do */}
       <div className="bg-warning-subtle p-4 my-4 row rounded-5">
       <div className="col-md-6">
-        <h2 className='pb-3'>Ethio-Pets Shelter</h2>
+        <h2 className='pb-3 fw-semibold'>Ethio-Pets Shelter</h2>
         <h4 className="text-muted">WHAT WE DO</h4>
         <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Quisque porttitor tellus lacus tristique magnis. Per posuere facilisis auctor vestibulum natoque maecenas vestibulum natoque. Elementum per eu elit ex torquent accumsan. Sagittis egestas facilisis fusce iaculis libero amet tortor augue. Felis viverra ornare fringilla sem praesent donec turpis lectus. Justo nisi nisl dapibus velit penatibus non et. Fringilla at phasellus leo faucibus nullam dapibus amet ipsum nullam.</p>
         <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Quisque porttitor tellus lacus tristique magnis. Per posuere facilisis auctor vestibulum natoque maecenas vestibulum natoque. Elementum per eu elit ex torquent accumsan. Sagittis egestas facilisis fusce iaculis libero amet tortor augue. Felis viverra ornare fringilla sem praesent donec turpis lectus. Justo nisi nisl dapibus velit penatibus non et. Fringilla at phasellus leo faucibus nullam dapibus amet ipsum nullam.</p>
@@ -83,7 +83,7 @@ const HomeBody = () => {
               <b className="d-block fs-5">Step 5</b> Submit!
             </li>
             <li className="list-group-item m-4 p-3">
-              <b className="d-block fs-5">Step 6</b> Pick up Yoour Pet From the Shelter!
+              <b className="d-block fs-5">Step 6</b> Pick up Your Pet From the Shelter After getting Approval!
             </li>
           </ul>
         </div>
@@ -93,7 +93,7 @@ const HomeBody = () => {
           <h2 className='m-4'>Our Featured Dogs</h2>
           <button onClick={handleDogClick} className="btn btn-warning mb-3">Get Featured Dog</button>
           {dogImage && (
-            <img src={dogImage} alt="Featured Dog" className="img-fluid" style={{ maxWidth: '80%' }} />
+            <img src={dogImage} alt="Featured Dog" className="img" style={{ maxWidth: '50%', maxHeight: 'auto' }} />
           )}
         </div>
 
