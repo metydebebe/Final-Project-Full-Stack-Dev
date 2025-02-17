@@ -86,7 +86,7 @@ FRONTEND (REACT) -vite
 Navigate to the client directory:
 cd client
 
-Install axios for API requests:
+Install axios for External API request:
 npm install axios
 
 Start the frontend application:
