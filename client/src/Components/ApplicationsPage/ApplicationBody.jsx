@@ -26,7 +26,7 @@ const ApplicationBody = () => {
   // Fetching applications
   // const url = process.env.REACT_APP_API_URL;         //NOT WORKING
 
-  const url = 'http://localhost:3000/applications';
+  const url = 'http://localhost:3000/applications/create';
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

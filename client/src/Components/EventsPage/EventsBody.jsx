@@ -20,7 +20,7 @@ const EventsBody = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('http://localhost:3000/events');
+      const response = await fetch('http://localhost:3000/events/search');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -71,7 +71,7 @@ const handleSearch = () => {
     if (editingEventId) {
       // Update event
       try {
-        const response = await fetch(`http://localhost:3000/events/${editingEventId}`, {
+        const response = await fetch(`http://localhost:3000/events/update/${editingEventId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const handleSearch = () => {
     } else {
       // Create new event
       try {
-        const response = await fetch('http://localhost:3000/events', {
+        const response = await fetch('http://localhost:3000/events/create', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ const handleSearch = () => {
 
   const handleDelete = async (eventId) => {
     try {
-      await fetch(`http://localhost:3000/events/${eventId}`, {
+      await fetch(`http://localhost:3000/events/remove/${eventId}`, {
         method: 'DELETE',
       });
       fetchEvents(); // Refresh events

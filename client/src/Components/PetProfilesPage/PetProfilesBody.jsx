@@ -24,7 +24,7 @@ const PetProfilesBody = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('http://localhost:3000/pets');  // const response = await fetch(url); //NOT WORKING
+        const response = await fetch('http://localhost:3000/pets/search');  // const response = await fetch(url); //NOT WORKING
 
         if (!response.ok) {
           throw new Error('Failed to fetch pets');

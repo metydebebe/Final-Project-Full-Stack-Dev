@@ -10,7 +10,7 @@ app.use(express.json());
 // CRUD Operations for Pets
 
 // GET all pets
-app.get("/pets", async (req, res) => {
+app.get("/pets/search", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM pets");
   
@@ -27,7 +27,7 @@ app.get("/pets", async (req, res) => {
   });
   
   // GET a specific pet by ID
-  app.get("/pets/:id", async (req, res) => {
+  app.get("/pets/search/:id", async (req, res) => {
     const petId = req.params.id;
   
     try {
@@ -46,7 +46,7 @@ app.get("/pets", async (req, res) => {
   });
 
 // POST a new pet
-app.post("/pets", async (req, res) => {
+app.post("/pets/create", async (req, res) => {
   const { pet_name, age, pet_type, description } = req.body;
   
   // Check if any required fields are missing
@@ -81,7 +81,7 @@ app.post("/pets", async (req, res) => {
 });
 
 // PUT (update) a pet
-app.put("/pets/:id", async (req, res) => {
+app.put("/pets/update/:id", async (req, res) => {
   const petId = req.params.id;
   const { pet_name, age, pet_type, description, adopted } = req.body;
 
@@ -103,7 +103,7 @@ app.put("/pets/:id", async (req, res) => {
 });
 
 // DELETE a pet
-app.delete("/pets/:id", async (req, res) => {
+app.delete("/pets/remove/:id", async (req, res) => {
   const petId = req.params.id;
 
   try {
@@ -124,7 +124,7 @@ app.delete("/pets/:id", async (req, res) => {
 // CRUD Operations for Applications
 
 // GET all applications
-app.get("/applications", async (req, res) => {
+app.get("/applications/search", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM applications");
   
@@ -141,7 +141,7 @@ app.get("/applications", async (req, res) => {
 });
   
 // GET a specific application by ID
-app.get("/applications/:id", async (req, res) => {
+app.get("/applications/search/:id", async (req, res) => {
     const applicationId = req.params.id;
   
     try {
@@ -160,7 +160,7 @@ app.get("/applications/:id", async (req, res) => {
 });
   
 // POST a new application
-app.post("/applications", async (req, res) => {
+app.post("/applications/create", async (req, res) => {
     const { pet_id, full_name, email, phone, address, preferred_pet_type, age_preference, gender_preference, previous_pet_ownership } = req.body;
   
     // Check if any required fields are missing
@@ -197,7 +197,7 @@ app.post("/applications", async (req, res) => {
 });
   
 // PUT (update) an application by ID
-app.put("/applications/:id", async (req, res) => {
+app.put("/applications/update/:id", async (req, res) => {
     const applicationId = req.params.id;
     const { status } = req.body; // Updating the status
 
@@ -243,7 +243,7 @@ app.put("/applications/:id", async (req, res) => {
 });
   
 // DELETE an application by ID
-app.delete("/applications/:id", async (req, res) => {
+app.delete("/applications/remove/:id", async (req, res) => {
     const applicationId = req.params.id;
   
     try {
@@ -264,7 +264,7 @@ app.delete("/applications/:id", async (req, res) => {
 // CRUD Operations for Events
 
 // GET all events
-app.get("/events", async (req, res) => {
+app.get("/events/search", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM events");
 
@@ -281,7 +281,7 @@ app.get("/events", async (req, res) => {
 });
 
 // GET a specific event by ID
-app.get("/events/:id", async (req, res) => {
+app.get("/events/search/:id", async (req, res) => {
     const eventId = req.params.id;
 
     try {
@@ -300,7 +300,7 @@ app.get("/events/:id", async (req, res) => {
 });
 
 // POST a new event
-app.post("/events", async (req, res) => {
+app.post("/events/create", async (req, res) => {
     const { event_name, event_date, location, description } = req.body;
 
     // Check if any required fields are missing
@@ -337,7 +337,7 @@ app.post("/events", async (req, res) => {
 });
 
 // PUT/update an event by ID
-app.put("/events/:id", async (req, res) => {
+app.put("/events/update/:id", async (req, res) => {
     const eventId = req.params.id;
     const { event_name, event_date, location, description } = req.body;
 
@@ -368,7 +368,7 @@ app.put("/events/:id", async (req, res) => {
 });
 
 // DELETE an event by ID
-app.delete("/events/:id", async (req, res) => {
+app.delete("/events/remove/:id", async (req, res) => {
     const eventId = req.params.id;
 
     try {
