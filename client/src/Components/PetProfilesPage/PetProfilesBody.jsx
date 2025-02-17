@@ -113,6 +113,7 @@ const PetProfilesBody = () => {
               />
               <div className="card-body">
                 <h5 className="card-title">{pet.pet_name}</h5>
+                <p className="card-text">Pet Id: {pet.pet_id}</p>
                 <p className="card-text">Type: {pet.pet_type}</p>
                 <p className="card-text">Age: {pet.age}</p>
                 <p className="card-text">Description: {pet.description}</p>
